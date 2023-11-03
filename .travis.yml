@@ -1,0 +1,28 @@
+language: elixir
+
+elixir:
+  - 1.12.3 # Version d'Elixir que vous utilisez
+otp_release:
+  - 24.0 # Version OTP que vous utilisez
+
+services:
+  - docker # Activer le support de Docker
+
+before_script:
+  - docker-compose up -d # Démarrer les conteneurs définis dans votre fichier docker-compose.yml
+  - sleep 10 # Attendez quelques secondes pour que les conteneurs PostgreSQL et Phoenix se lèvent complètement
+
+script:
+  - cd api # Naviguer vers le répertoire du backend (Phoenix)
+  - mix deps.get # Installer les dépendances du backend
+  - mix ecto.create # Créer la base de données
+  - mix ecto.migrate # Appliquer les migrations de la base de données
+  - mix test # Exécutez les tests du backend
+  - cd ../app # Naviguer vers le répertoire du frontend (Vue.js)
+  - npm install # Installer les dépendances du frontend
+  - npm run build # Compiler le frontend
+  - npm test # Exécutez les tests du frontend
+
+after_script:
+  - docker-compose down # Arrêter et supprimer les conteneurs après les tests
+
