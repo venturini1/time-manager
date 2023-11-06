@@ -1,9 +1,9 @@
 language: elixir
 
 elixir:
-  - 1.12.3 # Version d'Elixir que vous utilisez
-#otp_release:
-#  - 14.0.2 # Version OTP que vous utilisez
+  - 1.15.7 # Version d'Elixir que vous utilisez
+otp_release:
+  - 26 # Version OTP que vous utilisez
 
 services:
   - docker # Activer le support de Docker
