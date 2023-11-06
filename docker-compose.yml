@@ -1,35 +1,38 @@
 version: '3'
 
 services:
-   application:
-      image: image-app
-      ports:
-         - '8080:8080'
+  application:
+    image: image-app
+    ports:
+      - '8080:8080'
         
-   phoenix:
-      build: 
-         context: api/
-      environment:
-         PGUSER: postgres
-         PGPASSWORD: postgres
-         PGDATABASE: time_manager
-         PGPORT: 5432
-         PGHOST: db
-      ports:
-         - '4000:4000'
-      depends_on:
-         - db
+  phoenix:
+    build: 
+      context: api/
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: time_manager
+      PGPORT: 5432
+      PGHOST: db
 
-   db:
-      image: postgres:latest
-      environment:
-         POSTGRES_USER: postgres
-         POSTGRES_PASSWORD: postgres
-         POSTGRES_DB: time_manager
-         PGDATA: /var/lib/postgresql/data/pgdata
-      restart: always
-      volumes:
-         - pgdata:/var/lib/postgresql/data
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+    command: ["mix", "phx.server"]
+    
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: time_manager
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
-   pgdata:
+  pgdata:
