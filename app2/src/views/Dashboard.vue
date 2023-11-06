@@ -1,19 +1,52 @@
 <script setup>
+import axios from 'axios';
 import { onMounted, reactive, ref, watch } from 'vue';
-import ProductService from '@/service/ProductService';
+//import ProductService from '@/service/ProductService';
+
 import { useLayout } from '@/layout/composables/layout';
 
 const { isDarkTheme } = useLayout();
 
+var datar = []
+var datarr = ref(datar);
 const products = ref(null);
+const barData = ref(null);
+//const axios = require('axios'); // Make sure to import Axios or use it according to your project setup
+
+const setChart = async () => {
+    try {
+        const response = await axios.get('https://catfact.ninja/fact'); // Replace with your API endpoint
+        const chartData = response.data;
+
+        //JSON.parse(chartData)
+        //console.log(chartData.fact)
+        // Assuming chartData has a similar structure to what you had
+        /*barData.value = {
+            labels: chartData.labels,
+            datasets: chartData.datasets,
+        };*/
+        console.log(chartData.length);
+        datar[0] = chartData.fact;
+        datarr.value = datar[0];
+        console.log(datar);
+        console.log('bonjour');
+    } catch (error) {
+        console.error('Error fetching chart data:', error);
+    }
+};
+
+console.log('bi');
+console.log(datar[0]);
+setChart();
+
 const lineData = reactive({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: [datarr.value, 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
         {
             label: 'First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data : [12, 23, 34, 34, 23],
             fill: false,
-            backgroundColor: '#2f4860',
+            backgroundColor: 'red',
             borderColor: '#2f4860',
             tension: 0.4
         },
@@ -27,20 +60,47 @@ const lineData = reactive({
         }
     ]
 });
+
+
+const lineData1 = reactive({
+    labels: ['Januaryyy', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+        {
+            label: 'First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            backgroundColor: 'red',
+            borderColor: '#2f4860',
+            tension: 0.4
+        },
+        {
+            label: 'Second Dataset',
+            data: [28, 48, 40, 19, 86, 27, 90],
+            fill: false,
+            backgroundColor: '#00bb7e',
+            borderColor: '#00bb7e',
+            tension: 0.4
+        }
+    ]
+});
+
+
 const items = ref([
     { label: 'Add New', icon: 'pi pi-fw pi-plus' },
     { label: 'Remove', icon: 'pi pi-fw pi-minus' }
 ]);
 const lineOptions = ref(null);
-const productService = new ProductService();
+/*const productService = new ProductService();
 
 onMounted(() => {
     productService.getProductsSmall().then((data) => (products.value = data));
-});
+});*/
 
 const formatCurrency = (value) => {
     return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
 };
+
+
 const applyLightTheme = () => {
     lineOptions.value = {
         plugins: {
@@ -116,16 +176,16 @@ watch(
 
 <template>
     <div class="grid">
-      
+
         <div class="col-12 lg:col-6 xl:col-3">
-            
+
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
-           
-            
+
+
         </div>
         <div class="col-12 lg:col-6 xl:col-3">
-        
+
         </div>
 
         <div class="col-12 xl:col-6">
@@ -133,20 +193,26 @@ watch(
 
 
 
-            
-         
-         
+
+
+
+        </div>
+        <div class="card">
+                <h5>Linear Chart</h5>
+                <Chart type="line" :data="lineData" :options="lineOptions"></Chart>
+        </div>
+        <div class="card">
+                <h5>Linear Chart</h5>
+                <Chart type="pie" :data="lineData1" :options="lineOptions"></Chart>
         </div>
         <div class="col-12 xl:col-6">
-            <button>Ajouter widget</button>
-            <div class="card">
-                <h5>Sales Overview</h5>
-                <Chart type="line" :data="lineData" :options="lineOptions" />
+
+            <div id="app">
+                {{ info }}
             </div>
 
 
 
-         
             <!-- <div
                 class="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3"
                 style="border-radius: 1rem; background: linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1c80cf 47.88%, #ffffff 100.01%)"
