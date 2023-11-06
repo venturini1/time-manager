@@ -12,6 +12,7 @@ before_install:
   - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D38B4796
 
 before_script:
+  - wget -O ${TRAVIS_HOME}/erlang.tar.bz2 ${archive_url}
   - docker-compose up -d
   - sleep 10
 
