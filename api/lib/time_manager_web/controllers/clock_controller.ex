@@ -23,21 +23,41 @@ defmodule TimeManagerWeb.ClockController do
 
   def create(conn, %{"userID" => userID} = clock_params) do
     user = Admin.get_user!(userID)
-    # userIDint = String.to_integer(userID)
     IO.puts(userID)
-    case Admin.create_clock(Map.put(clock_params , "user_id", userID)) do
-      {:ok, %Clock{} = clock} ->
-        conn
-        |> put_status(:created)
-        |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
-        |> render("show.json", clock: clock)
 
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render("error.json", %{error: "Failed to create clock", changeset: changeset})
+    # Vérifie si l'utilisateur a déjà une clock associée
+    existing_clock = Admin.get_existing_clock(userID)
+
+    case existing_clock do
+      nil ->  # Aucune clock existante, nous en créons une nouvelle
+        case Admin.create_clock(Map.put(clock_params, "user_id", userID)) do
+          {:ok, %Clock{} = clock} ->
+            conn
+            |> put_status(:created)
+            |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
+            |> render("show.json", clock: clock)
+
+          {:error, changeset} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> render("error.json", %{error: "Failed to create clock", changeset: changeset})
+        end
+
+      existing_clock ->  # Une clock existe déjà, nous la mettons à jour
+        case Admin.update_clock(existing_clock, clock_params) do
+          {:ok, updated_clock} ->
+            conn
+            |> put_status(:ok)
+            |> render("show.json", clock: updated_clock)
+
+          {:error, changeset} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> render("error.json", %{error: "Failed to update clock", changeset: changeset})
+        end
     end
   end
+
 
   # def show(conn, %{"id" => id}) do
   #   clock = Admin.get_clock!(id)

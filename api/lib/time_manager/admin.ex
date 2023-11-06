@@ -145,6 +145,11 @@ defmodule TimeManager.Admin do
       {:error, %Ecto.Changeset{}}
 
   """
+
+  def get_existing_clock(user_id) do
+    Repo.one(from c in Clock, where: c.user_id == ^user_id)
+  end
+
   def create_clock(attrs \\ %{}) do
     %Clock{}
     |> Clock.changeset(attrs)
@@ -228,6 +233,10 @@ defmodule TimeManager.Admin do
 
   """
   def get_working_time!(id), do: Repo.get!(WorkingTime, id)
+
+  def get_working_time_by_user_id(userID) do
+    Repo.all(from wt in WorkingTime, where: wt.user_id == ^userID)
+  end
 
   @doc """
   Creates a working_time.

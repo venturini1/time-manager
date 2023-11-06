@@ -3,6 +3,7 @@ defmodule TimeManagerWeb.WorkingTimeController do
 
   alias TimeManager.Admin
   alias TimeManager.Admin.WorkingTime
+  alias TimeManager.Repo
 
   action_fallback TimeManagerWeb.FallbackController
 
@@ -11,25 +12,34 @@ defmodule TimeManagerWeb.WorkingTimeController do
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
-  def create(conn, %{"working_time" => working_time_params}) do
-    with {:ok, %WorkingTime{} = working_time} <- Admin.create_working_time(working_time_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.working_time_path(conn, :show, working_time))
-      |> render("show.json", working_time: working_time)
+  def create(conn, %{"userID" => userID} = working_time_params) do
+    user = Admin.get_user!(userID)
+    IO.puts(userID)
+    case Admin.create_working_time(Map.put(working_time_params , "user_id", userID)) do
+      {:ok, %WorkingTime{} = working_time} ->
+        conn
+        |> put_status(:created)
+        |> put_resp_header("location", Routes.clock_path(conn, :show, working_time))
+        |> render("show_one.json", working_time: working_time)
+
+      {:error, changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> render("error.json", %{error: "Failed to create working_time", changeset: changeset})
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    working_time = Admin.get_working_time!(id)
-    render(conn, "show.json", working_time: working_time)
+  def show(conn, %{"userID" => userID}) do
+    user = Admin.get_user!(userID)
+    working_times = Admin.get_working_time_by_user_id(userID)
+    render(conn, "show_all.json", working_times: working_times)
   end
 
-  def update(conn, %{"id" => id, "working_time" => working_time_params}) do
+  def update(conn, %{"id" => id} = working_time_params) do
     working_time = Admin.get_working_time!(id)
 
     with {:ok, %WorkingTime{} = working_time} <- Admin.update_working_time(working_time, working_time_params) do
-      render(conn, "show.json", working_time: working_time)
+      render(conn, "show_one.json", working_time: working_time)
     end
   end
 
