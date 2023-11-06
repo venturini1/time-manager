@@ -160,6 +160,7 @@ const applyDarkTheme = () => {
         }
     };
 };
+const visible = ref(false);
 
 watch(
     isDarkTheme,
@@ -190,7 +191,20 @@ watch(
 
         <div class="col-12 xl:col-6">
 
-
+        <template>
+    
+    <div class="card flex justify-content-center">
+        <Button type="button" label="Ajouter-Widgets" icon="pi pi-ellipsis-v" :loading="loading" @click="load" />
+        <Button type="button" label="Suprimer-Widegets" icon="pi pi-ellipsis-v" :loading="loading" @click="load" />
+        
+        <div>
+            <button @click="ouvrirWorkingTime">Afficher le pop-up</button>
+            <WorkingTime v-if="WorkingTimeVisible" @fermer-WorkingTime="fermerWorkingTimeWorkingTime" />
+        </div>
+        
+    </div>
+    
+</template>
 
 
 
@@ -210,6 +224,29 @@ watch(
             <div id="app">
                 {{ info }}
             </div>
+            
+
+    <div class="card flex justify-content-center">
+        <Button label="Show" icon="pi pi-external-link" @click="visible = true" />
+        <Dialog v-model:visible="visible" modal header="Header" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+            <template #header>
+                <div class="inline-flex align-items-center justify-content-center gap-2">
+                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                    <span class="font-bold white-space-nowrap">Amy Elsner</span>
+                </div>
+            </template>
+            <p class="m-0">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+            <template #footer>
+                <Button label="Ok" icon="pi pi-check" @click="visible = false" autofocus />
+            </template>
+        </Dialog>
+    </div>
+
+
+
 
 
 
@@ -228,3 +265,4 @@ watch(
         </div>
     </div>
 </template>
+
