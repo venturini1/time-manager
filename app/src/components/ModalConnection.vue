@@ -2,11 +2,11 @@
   
     <div>
       <!-- <button @click="showModal = true">Show Modal</button> -->
-      <button type="button" class="btn btn-primary" @click="showModal = true"  >Edit profile</button>
+      <button type="button" class="btn btn-primary" @click="showModal = true"  >Connection</button>
       <custom-modal v-if="showModal">
         <!-- Modal content goes here -->
         <h2>My Modal</h2>
-        <EditProfile/>
+        <Connection/>
         <button type="button" class="btn btn-danger" @click="showModal = false">close</button>
         <!-- <button @click="showModal = false">Close Modal</button> -->
       </custom-modal>
@@ -16,17 +16,17 @@
   <script>
   // Remove this import statement as Vue is typically available globally in a Vue project
   // import Vue from 'vue';
-  import EditProfile from './EditProfile.vue';
+  import Connection from './Connection.vue';
 
   
   export default {
-    name: "ModalUser",
+    name: "ModalConnection",
     data() {
         return {
             showModal: false, // Initially, the modal is hidden
         };
     },
-    components: { EditProfile }
+    components: { Connection }
 };
   </script>
   
