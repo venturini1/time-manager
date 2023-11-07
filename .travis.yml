@@ -15,6 +15,7 @@ before_script:
   - docker-compose up -d
   - sleep 10
 
+
 script:
   - cd api
   - mix ecto.create
