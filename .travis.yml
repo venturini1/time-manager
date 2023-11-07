@@ -12,6 +12,7 @@ before_script:
 script:
   
   - cd  api
+  - pwd
   - mix deps.get
   - mix ecto.create
   - mix ecto.migrate
