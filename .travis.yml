@@ -5,6 +5,7 @@ otp_release:
   - 22.0
 
 script:
+  - pwd
   - cd ./api
   - mix deps.get
   - mix ecto.create
