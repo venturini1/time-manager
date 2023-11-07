@@ -1,29 +1,16 @@
 language: elixir
 elixir:
-  - 1.8.2
+  - 1.11.3
 otp_release:
-  - 22.0
-
+  - 23.0.4
+script:
+  - mix deps.get
+  - mix compile
 services:
   - docker
 
 before_install:
-  - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D38B4796
-
-before_script:
   - docker-compose up -d
-  - sleep 10
-
-script:
-  - cd api
-  - mix deps.get
-  - mix ecto.create
-  - mix ecto.migrate
-  - mix test
-  - cd ../app
-  - npm install
-  - npm run build
-  - npm test
 
 after_script:
   - docker-compose down
