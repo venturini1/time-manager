@@ -90,8 +90,9 @@ export default {
 }
 .new
 {
-  border: 1px solid #079de2;
-  padding-left: 0;
+  /* border: 1px solid #079de2; */
+ display: flex;
+ justify-content: flex-end;
 }
 .btn-primary
 {

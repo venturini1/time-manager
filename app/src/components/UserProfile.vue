@@ -10,6 +10,8 @@
 
 <ModalUser v-show="ModalUser" />
 
+<ModalConnection v-show="ModalConnection"/>
+<ModalTest v-show="ModalUser" />
 
 
 
@@ -27,9 +29,11 @@
 <script>
 
 import ModalUser from './ModalUser.vue'
+
+import ModalConnection from './ModalConnection.vue';
 export default {
   name: 'UserProfile',
-  components: { ModalUser },
+  components: { ModalUser, ModalConnection },
   data() {
     return {
       ModalUser: true,
