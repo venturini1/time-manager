@@ -5,22 +5,21 @@ otp_release:
   - 22.0
 
 script:
-  - cd ../app
-  - npm install
-  - npm run build
-  - npm test
-  - cd ../api
+  - cd ./api
   - mix deps.get
   - mix ecto.create
   - mix ecto.migrate
   - mix test
-  
+  - cd ../app
+  - npm install
+  - npm run build
+  - npm test
 services:
   - docker
 
 before_script:
   - docker-compose up -d
   - sleep 10
-
+  
 after_script:
   - docker-compose down
