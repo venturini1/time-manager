@@ -22,7 +22,7 @@ defmodule TimeManagerWeb.ClockController do
   # end
 
   def create(conn, %{"userID" => userID} = clock_params) do
-    user = Admin.get_user!(userID)
+    # user = Admin.get_user!(userID)
     IO.puts(userID)
 
     # Vérifie si l'utilisateur a déjà une clock associée
@@ -65,7 +65,7 @@ defmodule TimeManagerWeb.ClockController do
   # end
 
   def show(conn, %{"userID" => userID}) do
-    user = Admin.get_user!(userID)
+    # user = Admin.get_user!(userID)
     # clock = Admin.get_clock!(userID)
     clock = Repo.get_by(Clock, user_id: userID)
     render(conn, "show.json", clock: clock)
