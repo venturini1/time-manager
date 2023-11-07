@@ -4,8 +4,13 @@ elixir:
 otp_release:
   - 22.0
 
-script:
+before_script:
+  - docker-compose up -d
+  - sleep 10
   - echo $(pwd)
+
+script:
+  
   - cd  api
   - mix deps.get
   - mix ecto.create
@@ -17,10 +22,6 @@ script:
   - npm test
 services:
   - docker
-
-before_script:
-  - docker-compose up -d
-  - sleep 10
   
 after_script:
   - docker-compose down
