@@ -5,7 +5,8 @@ otp_release:
   - 22.0
 
 script:
-  - cd  /Users/antoineventurini/Time-manager/api
+  - cd  api
+  - echo $(pwd)
   - mix deps.get
   - mix ecto.create
   - mix ecto.migrate
