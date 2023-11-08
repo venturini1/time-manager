@@ -6,13 +6,14 @@
     <WorkingTime v-if="WorkingTimeVisible" @fermer-WorkingTime="fermerWorkingTimeWorkingTime" />
     </div>
     <h1 class="titre">Working Times Dashboard</h1>
-    <table>
+    <div></div>
+    <!-- <table>
       <tr>
         <th>Widget</th>
       </tr>
       <tr>
         <td>
-          <!-- Widget 1 - Liste des horaires de travail -->
+
           <div class="widget">
             <h2>Horaires de Travail</h2>
             <ul>
@@ -23,21 +24,21 @@
           </div>
         </td>
         <td>
-          <!-- Import du composant User -->
+ 
           <User :userId="userId" />
         </td>
       </tr>
       <tr>
         <td>
-          <!-- Import du composant WorkingTime -->
-          <!-- <WorkingTime :userId="userId" /> -->
+   
         </td>
         <td>
-          <!-- Import du composant ClockManager -->
+
           <ClockManager :userId="userId" />
         </td>
       </tr>
-    </table>
+    </table> -->
+    <!-- <ClockManager :userId="userId" /> -->
   </div>
 </template>
 

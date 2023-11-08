@@ -2,15 +2,21 @@
  <div class="container">
   <div class="row">
     <div class="col-2"><UserProfile /></div>
-    <div class="col-9">
+    <div class="col-7">
+      
       <div class="intraContainer">
-        <WorkingTimes/> 
-        <pButton label="Submit" />
+         <WorkingTimes/> 
+   
+
+        <ChartUn widht="150"/>
+        <ChartDeux/>
+       
+        <!-- <pButton label="Submit" /> -->
 
 
 
 
-        <div class="card flex justify-content-center">
+        <!-- <div class="card flex justify-content-center">
                 <Button label="Show" icon="pi pi-external-link" @click="visible = true" />
                 <Dialog v-model:visible="visible" modal header="Header" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
                     <template #header>
@@ -47,7 +53,7 @@
                    
                    
                 </Dialog>
-            </div>
+            </div> -->
 
 
 
@@ -58,10 +64,12 @@
 
 
         
-        <ModalWorkingTimeVue/>
+       
       </div>  
     </div>
-   
+    <div class="col-2">
+   <ClockManager/>
+    </div>
   </div>
 </div>
 
@@ -74,6 +82,9 @@ import UserProfile from './UserProfile.vue'
 import WorkingTimes from './WorkingTimes.vue'
 import ModalWorkingTimeVue from './ModalWorkingTime.vue';
 import { ref, onMounted } from 'vue';
+import ChartUn from './ChartUn.vue';
+import ClockManager from './ClockManager.vue';
+import ChartDeux from './CharteDeux.vue'
 // import { CustomerService } from '@/service/CustomerService';
 
 //import WorkingTime from './WorkingTime.vue'
@@ -96,7 +107,11 @@ export default {
     UserProfile,
    // WorkingTime,
     WorkingTimes,
-    ModalWorkingTimeVue
+    ModalWorkingTimeVue,
+    ChartUn,
+    ClockManager,
+    ChartDeux
+    
   }
 }
 
