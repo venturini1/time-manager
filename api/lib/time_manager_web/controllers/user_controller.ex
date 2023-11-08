@@ -6,20 +6,13 @@ defmodule TimeManagerWeb.UserController do
 
   action_fallback TimeManagerWeb.FallbackController
 
-
-
-#   def get_users_by(keyword) do
-#     query =
-#           from c in Users,
-#             where: keyword,
-#             select: c
-
-#     Repo.all(query)
-# end
+  def index(conn, %{"email" => email, "username" => username}) do
+    users = Admin.get_user_filters(username, email)
+    render(conn, "index.json", users: users)
+  end
 
   def index(conn, _params) do
     users = Admin.list_users()
-    # users = get_users_by(username: username)
     render(conn, "index.json", users: users)
   end
 

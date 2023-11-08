@@ -3,7 +3,6 @@ defmodule TimeManagerWeb.WorkingTimeController do
 
   alias TimeManager.Admin
   alias TimeManager.Admin.WorkingTime
-  alias TimeManager.Repo
 
   action_fallback TimeManagerWeb.FallbackController
 
@@ -13,7 +12,6 @@ defmodule TimeManagerWeb.WorkingTimeController do
   end
 
   def create(conn, %{"userID" => userID} = working_time_params) do
-    user = Admin.get_user!(userID)
     IO.puts(userID)
     case Admin.create_working_time(Map.put(working_time_params , "user_id", userID)) do
       {:ok, %WorkingTime{} = working_time} ->
@@ -29,8 +27,12 @@ defmodule TimeManagerWeb.WorkingTimeController do
     end
   end
 
+  def show(conn, %{"userID" => userID, "start" => date_start, "end" => date_end}) do
+    working_times = Admin.get_working_time_by_user_id_with_filters(userID, date_start, date_end)
+    render(conn, "show_all.json", working_times: working_times)
+  end
+
   def show(conn, %{"userID" => userID}) do
-    user = Admin.get_user!(userID)
     working_times = Admin.get_working_time_by_user_id(userID)
     render(conn, "show_all.json", working_times: working_times)
   end
