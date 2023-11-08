@@ -8,10 +8,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.13",
+    "chart.js": "^4.4.0",
     "core-js": "^3.8.3",
     "eslint": "^8.53.0",
+    "gridstack": "^9.5.0",
+    "postcss": "^8.4.19",
     "primevue": "^3.39.0",
-    "vue": "^3.2.13"
+    "tailwindcss": "^3.2.4",
+    "vue": "^3.2.13",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
