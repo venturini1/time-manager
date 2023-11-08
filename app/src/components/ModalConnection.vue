@@ -2,10 +2,10 @@
   
     <div>
       <!-- <button @click="showModal = true">Show Modal</button> -->
-      <button type="button" class="btn btn-primary" @click="showModal = true"  >Connection</button>
+      <button type="button" class="btn btn-primary" @click="showModal = true"  >Login</button>
       <custom-modal v-if="showModal">
         <!-- Modal content goes here -->
-        <h2>My Modal</h2>
+        <h2>Login</h2>
         <Connection/>
         <button type="button" class="btn btn-danger" @click="showModal = false">close</button>
         <!-- <button @click="showModal = false">Close Modal</button> -->
