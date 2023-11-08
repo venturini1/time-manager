@@ -118,16 +118,22 @@ export default {
 <style scoped lang="scss">
 .col-2
 {
-  border: solid 1px rgb(150, 36, 36);
+  border: solid 1px rgba(198, 190, 190, 0.207);
   margin: 10px;
   border-radius: 20px;
+  -webkit-box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18); 
+ box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18);
+
 }
 .col-9
 {
-  border: solid 1px rgb(0, 0, 0);
+  border: solid 1px rgba(198, 190, 190, 0.207);
   border-radius: 20px;
   margin: 10px;
   padding: 10px;
+  -webkit-box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18); 
+  box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18);
+
  
 }
 .row
@@ -148,10 +154,10 @@ export default {
 {
   display: flex;
   justify-content: center;
-  background-color: black;
+
 }
 
 .intraContainer{
-  border: 1px solid black;
+
 }
 </style>

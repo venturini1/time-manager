@@ -5,7 +5,7 @@
     <button @click="ouvrirWorkingTime" class="btn btn-primary">NEW</button>
     <WorkingTime v-if="WorkingTimeVisible" @fermer-WorkingTime="fermerWorkingTimeWorkingTime" />
     </div>
-    <h1>Working Times Dashboard</h1>
+    <h1 class="titre">Working Times Dashboard</h1>
     <table>
       <tr>
         <th>Widget</th>
@@ -103,6 +103,12 @@ export default {
   padding: 10px;
   margin: 10px;
   text-align: left;
+}
+
+.titre{
+  font-weight: bold;
+  font-size: 50px;
+  color: rgb(34, 93, 109);
 }
 </style>
 
