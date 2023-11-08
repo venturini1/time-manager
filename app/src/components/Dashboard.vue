@@ -7,9 +7,12 @@
       <div class="intraContainer">
          <WorkingTimes/> 
    
-
-        <ChartUn widht="150"/>
+        <div class="styleUn">
+           <ChartUn widht="150"/>
+        </div>
         <ChartDeux/>
+        <ChartTrois/>
+       
        
         <!-- <pButton label="Submit" /> -->
 
@@ -84,7 +87,8 @@ import ModalWorkingTimeVue from './ModalWorkingTime.vue';
 import { ref, onMounted } from 'vue';
 import ChartUn from './ChartUn.vue';
 import ClockManager from './ClockManager.vue';
-import ChartDeux from './CharteDeux.vue'
+import ChartDeux from './CharteDeux.vue';
+import ChartTrois from './ChartTrois.vue';
 // import { CustomerService } from '@/service/CustomerService';
 
 //import WorkingTime from './WorkingTime.vue'
@@ -110,8 +114,8 @@ export default {
     ModalWorkingTimeVue,
     ChartUn,
     ClockManager,
-    ChartDeux
-    
+    ChartDeux,
+    ChartTrois
   }
 }
 
@@ -175,4 +179,5 @@ export default {
 .intraContainer{
 
 }
+
 </style>
