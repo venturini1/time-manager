@@ -37,6 +37,17 @@ defmodule TimeManager.Admin do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+  def get_user_filters(username, email) do
+    query = cond do
+      is_nil(username) or is_nil(email) ->
+        from u in User
+      true ->
+        from u in User, where: u.username == ^username and u.email == ^email
+    end
+
+    Repo.all(query)
+  end
+
   @doc """
   Creates a user.
 
@@ -236,6 +247,17 @@ defmodule TimeManager.Admin do
 
   def get_working_time_by_user_id(userID) do
     Repo.all(from wt in WorkingTime, where: wt.user_id == ^userID)
+  end
+
+  def get_working_time_by_user_id_with_filters(userID, date_start, date_end) do
+    query = cond do
+      is_nil(date_start) or is_nil(date_end) ->
+        from wt in WorkingTime
+      true ->
+        from wt in WorkingTime, where: (wt.start == ^date_start and wt.end == ^date_end) and wt.user_id == ^userID
+    end
+
+    Repo.all(query);
   end
 
   @doc """
