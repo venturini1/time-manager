@@ -48,6 +48,20 @@ defmodule TimeManager.Admin do
     Repo.all(query)
   end
 
+  def get_user_by_email_and_password(email, password) do
+    query = from u in User, where: u.email == ^email and u.password == ^password
+
+    Repo.one(query)
+  end
+
+  def user_is_admin(user) do
+    if user.role == "admin" do
+      true
+    else
+      false
+    end
+  end
+
   @doc """
   Creates a user.
 

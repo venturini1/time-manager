@@ -7,6 +7,10 @@
 # General application configuration
 import Config
 
+config :time_manager, TimeManagerWeb.Guardian,
+  issuer: "time_manager",
+  secret_key: "i9PUKNErNCJzbobTDOPJMgN4QxeVRCdJMU560eifKXdwFYCi2aT+ZhnCp2Mklk3f+nfyKNpIMeVTHu2KZUyP9D0"
+
 config :time_manager,
   ecto_repos: [TimeManager.Repo]
 

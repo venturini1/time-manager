@@ -44,7 +44,8 @@ defmodule TimeManager.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:phoenix_api_toolkit, "~> 3.1.1"}
+      {:phoenix_api_toolkit, "~> 3.1.1"},
+      {:guardian, "~> 2.0"}
     ]
   end
 
