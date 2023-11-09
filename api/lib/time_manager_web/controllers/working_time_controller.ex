@@ -27,6 +27,11 @@ defmodule TimeManagerWeb.WorkingTimeController do
     end
   end
 
+  def show_by_id(conn, %{"id" => id}) do
+    working_time = Admin.get_working_time!(id)
+    render(conn, "show_one.json", working_time: working_time)
+  end
+
   def show(conn, %{"userID" => userID, "start" => date_start, "end" => date_end}) do
     working_times = Admin.get_working_time_by_user_id_with_filters(userID, date_start, date_end)
     render(conn, "show_all.json", working_times: working_times)
