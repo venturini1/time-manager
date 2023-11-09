@@ -1,58 +1,149 @@
-<template>
+<!-- <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+    <button class="debut" @click="startTimer">Début</button>
+    <button class="fin" @click="stopTimer">Fin</button>
+    <div class="horaireDebut" v-if="showTime">{{ debutDateTime }}</div>
+    <div class="horaireFin" v-if="showTime">{{ finDateTime }}</div>
+    <div class="timer" v-if="showTime">{{ timerText }}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+  name: 'ClockManager',
+  data() {
+    return {
+      showTime: false,
+      debutDateTime: '',
+      finDateTime: '',
+      timer: null,
+      startTime: null,
+      timerText: '',
+    };
+  },
+  methods: {
+    startTimer() {
+      this.showTime = true;
+      this.debutDateTime = `Début: ${new Date().toLocaleString()}`;
+      this.startTime = new Date();
+
+  
+      this.timer = setInterval(() => {
+        const currentTime = new Date();
+        const elapsedTime = currentTime - this.startTime;
+        const seconds = Math.floor(elapsedTime / 1000);
+
+        this.debutDateTime = `Début: ${new Date().toLocaleString()}`;
+        this.timerText = `Timer: ${seconds} seconds`;
+      }, 1000); 
+    },
+    stopTimer() {
+      this.showTime = true;
+
+
+      clearInterval(this.timer);
+
+      this.finDateTime = `Fin: ${new Date().toLocaleString()}`;
+    },
+  },
+};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+<style>
+
+</style> -->
+
+
+<template>
+  <div class="hello">
+
+    
+    <button type="button" class=" clock btn btn-primary" @click="toggleClock">{{ isActive ? 'Stop Clock' : 'Start Clock' }}</button>
+    <div class="debut"> Debut :{{ isActive ? debutTime : '' }}</div>
+    <div class="fin"> Fin :{{ !isActive ? finTime : '' }}</div><div> Timer actif : {{ isActive }}</div>
+    <div class="timer"> Timer :{{ isActive ? timer : '' }}</div>
+
+
+    <ul class="horraire">
+      <li v-for="(log, index) in logData" :key="index">{{ log }}</li>
+    </ul>
+  </div>
+
+  <div>
+
+
+  </div>
+</template>
+
+<script>
+import Chart from 'chart.js/auto';
+export default {
+  mounted(){
+    const ctx = document.getElementById('myChart');
+
+
+
+    new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  },
+  data() {
+    return {
+      isActive: false,
+      debutTime: '',
+      finTime: '',
+      timer: 0,
+      intervalId: null,
+      logData: [], // Store log data for the <ul> element
+    };
+  },
+  methods: {
+    toggleClock() {
+      if (this.isActive) {
+        // Stop the clock
+        clearInterval(this.intervalId);
+        this.finTime = new Date().toLocaleString();
+        // Add log data to the list
+        this.logData.push(`Debut  : ${this.debutTime}, Actif  :${this.isActive}, Fin  : ${this.finTime}, Actif  :${!this.isActive}, Timer  : ${this.timer} seconds,`, );
+      } else {
+        // Start the clock
+        this.debutTime = new Date().toLocaleString();
+        this.intervalId = setInterval(() => {
+          this.timer++;
+        }, 1000);
+      }
+      this.isActive = !this.isActive;
+    },
+  },
+};
+
+
+
+
+
+
+ /////
+
+
+
+ //////
+</script>
+
+<style>
+/* Add your CSS styles here */
 </style>

@@ -9,12 +9,6 @@ defmodule TimeManager.Admin.User do
     timestamps()
   end
 
-
-
-  # def by_email(query, email) do
-  #   from [user: user] in query, where: user.email == ^email
-  # end
-
   @doc false
   def changeset(user, attrs) do
     user

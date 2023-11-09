@@ -3,16 +3,16 @@ import Config
 #Configure your database
 
 config :time_manager, TimeManager.Repo,
-  username: System.get_env("PGUSER"),
-#   username: "postgres",
-  password: System.get_env("PGPASSWORD"),
-#   password: "postgres",
-  database: System.get_env("PGDATABASE"),
-#   database: "time_manager_dev",
-  hostname: System.get_env("PGHOST"),
-#   hostname: "localhost",
-  port: System.get_env("PGPORT"),
-#   port: "5500",
+  # username: System.get_env("PGUSER"),
+  username: "postgres",
+  # password: System.get_env("PGPASSWORD"),
+  password: "postgres",
+  # database: System.get_env("PGDATABASE"),
+  database: "time_manager_dev",
+  # hostname: System.get_env("PGHOST"),
+  hostname: "localhost",
+  # port: System.get_env("PGPORT"),
+  port: "5500",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

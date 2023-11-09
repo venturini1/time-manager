@@ -1,0 +1,44 @@
+language: node_js
+node_js:
+ - 17
+
+cache: npm
+
+script: npm run build
+
+deploy:
+ provider: pages
+ skip_cleanup: true
+ github_token: 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
+ local_dir: dist
+ on:
+   branch: main
+
+# language: elixir
+# elixir:
+#   - 1.8.2
+# otp_release:
+#   - 22.0
+
+# before_script:
+#   - docker-compose up -d
+#   - sleep 10
+#   - echo $(pwd)
+
+# script:
+  
+#   - cd  api
+#   - pwd
+#   - mix deps.get
+#   - mix ecto.create
+#   - mix ecto.migrate
+#   - mix test
+#   - cd ../app
+#   - npm install
+#   - npm run build
+#   - npm test
+# services:
+#   - docker
+  
+# after_script:
+#   - docker-compose down

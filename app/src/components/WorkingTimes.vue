@@ -5,14 +5,15 @@
     <button @click="ouvrirWorkingTime" class="btn btn-primary">NEW</button>
     <WorkingTime v-if="WorkingTimeVisible" @fermer-WorkingTime="fermerWorkingTimeWorkingTime" />
     </div>
-    <h1>Working Times Dashboard</h1>
-    <table>
+    <h1 class="titre">Working Times Dashboard</h1>
+    <div></div>
+    <!-- <table>
       <tr>
         <th>Widget</th>
       </tr>
       <tr>
         <td>
-          <!-- Widget 1 - Liste des horaires de travail -->
+
           <div class="widget">
             <h2>Horaires de Travail</h2>
             <ul>
@@ -23,21 +24,21 @@
           </div>
         </td>
         <td>
-          <!-- Import du composant User -->
+ 
           <User :userId="userId" />
         </td>
       </tr>
       <tr>
         <td>
-          <!-- Import du composant WorkingTime -->
-          <!-- <WorkingTime :userId="userId" /> -->
+   
         </td>
         <td>
-          <!-- Import du composant ClockManager -->
+
           <ClockManager :userId="userId" />
         </td>
       </tr>
-    </table>
+    </table> -->
+    <!-- <ClockManager :userId="userId" /> -->
   </div>
 </template>
 
@@ -90,8 +91,9 @@ export default {
 }
 .new
 {
-  border: 1px solid #079de2;
-  padding-left: 0;
+  /* border: 1px solid #079de2; */
+ display: flex;
+ justify-content: flex-end;
 }
 .btn-primary
 {
@@ -102,6 +104,12 @@ export default {
   padding: 10px;
   margin: 10px;
   text-align: left;
+}
+
+.titre{
+  font-weight: bold;
+  font-size: 50px;
+  color: rgb(34, 93, 109);
 }
 </style>
 
