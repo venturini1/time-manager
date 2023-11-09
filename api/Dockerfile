@@ -1,5 +1,5 @@
 # Utilisez une image officielle Elixir en tant qu'image parent.
-FROM elixir:1.15.7
+FROM elixir:latest
 
 # Installez le client PostgreSQL.
 RUN apt-get update && \
@@ -20,8 +20,6 @@ ENV PORT=4000
 RUN mix deps.get
 
 # Exécutez les migrations pour créer la base de données et les tables nécessaires (ajouté cette étape).
-RUN mix ecto.create
-RUN mix ecto.migrate
 
 # Exposez le port sur lequel l'application écoute.
 EXPOSE 4000
