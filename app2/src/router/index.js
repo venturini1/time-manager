@@ -14,7 +14,7 @@ const router = createRouter({
               name: 'dashboard',
               component: () => import('@/views/Dashboard.vue')
           },
-          {
+          /*{
               path: '/uikit/formlayout',
               name: 'formlayout',
               component: () => import('@/views/uikit/FormLayout.vue')
@@ -39,7 +39,7 @@ const router = createRouter({
               name: 'button',
               component: () => import('@/views/uikit/Button.vue')
           },
-          {
+          /
               path: '/uikit/table',
               name: 'table',
               component: () => import('@/views/uikit/Table.vue')
@@ -111,7 +111,7 @@ const router = createRouter({
               path: '/uikit/misc',
               name: 'misc',
               component: () => import('@/views/uikit/Misc.vue')
-          },
+          },*/
           {
               path: '/blocks',
               name: 'blocks',

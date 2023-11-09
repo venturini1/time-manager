@@ -11,9 +11,9 @@ const model = ref([
     {
         label: 'Navigation',
         items: [
-            { label: 'Editer profil', icon: 'pi pi-fw pi-id-card', to: '/uikit/formlayout' },
-            { label: 'Ajouter utilisateur', icon: 'pi pi-fw pi-check-square', to: '/uikit/input' },
-            { label: 'Widget', icon: 'pi pi-fw pi-bookmark', to: '/uikit/floatlabel' },
+            //{ label: 'Editer profil', icon: 'pi pi-fw pi-id-card', to: '/uikit/formlayout' },
+            //{ label: 'Ajouter utilisateur', icon: 'pi pi-fw pi-check-square', to: '/uikit/input' },
+           // { label: 'Widget', icon: 'pi pi-fw pi-bookmark', to: '/uikit/floatlabel' },
             // { label: 'Invalid State', icon: 'pi pi-fw pi-exclamation-circle', to: '/uikit/invalidstate' },
             // { label: 'Button', icon: 'pi pi-fw pi-mobile', to: '/uikit/button', class: 'rotated-icon' },
             // { label: 'Table', icon: 'pi pi-fw pi-table', to: '/uikit/table' },
@@ -163,18 +163,18 @@ const model = ref([
     // }
 ]);
 </script>
-
+<!---->
 <template>
     <ul class="layout-menu">
-        <template v-for="(item, i) in model" :key="item">
+        <!--<template v-for="(item, i) in model" :key="item">
             <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
             <li v-if="item.separator" class="menu-separator"></li>
-        </template>
-        <!-- <li>
+        </template>-->
+         <li>
             <a href="https://www.primefaces.org/primeblocks-vue/#/" target="_blank">
-                <img src="/layout/images/banner-primeblocks.png" alt="Prime Blocks" class="w-full mt-3" />
+                <img src="public/layout/images/banner-primeblocks.png" alt="Prime Blocks" class="w-full mt-3" />
             </a>
-        </li> -->
+        </li> 
     </ul>
 </template>
 
