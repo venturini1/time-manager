@@ -19,7 +19,6 @@ ENV PORT=4000
 # Installez les dépendances du projet.
 RUN mix deps.get
 
-# Compilez le projet en mode production.
 
 # Exposez le port sur lequel l'application écoute.
 EXPOSE 4000

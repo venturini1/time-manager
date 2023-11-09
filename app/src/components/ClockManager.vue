@@ -60,17 +60,48 @@ export default {
     
     <button type="button" class=" clock btn btn-primary" @click="toggleClock">{{ isActive ? 'Stop Clock' : 'Start Clock' }}</button>
     <div class="debut"> Debut :{{ isActive ? debutTime : '' }}</div>
-    <div class="fin"> Fin :{{ !isActive ? finTime : '' }}</div>
+    <div class="fin"> Fin :{{ !isActive ? finTime : '' }}</div><div> Timer actif : {{ isActive }}</div>
     <div class="timer"> Timer :{{ isActive ? timer : '' }}</div>
+
 
     <ul class="horraire">
       <li v-for="(log, index) in logData" :key="index">{{ log }}</li>
     </ul>
   </div>
+
+  <div>
+
+
+  </div>
 </template>
 
 <script>
+import Chart from 'chart.js/auto';
 export default {
+  mounted(){
+    const ctx = document.getElementById('myChart');
+
+
+
+    new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  },
   data() {
     return {
       isActive: false,
@@ -88,7 +119,7 @@ export default {
         clearInterval(this.intervalId);
         this.finTime = new Date().toLocaleString();
         // Add log data to the list
-        this.logData.push(`Debut: ${this.debutTime}, Fin: ${this.finTime}, Timer: ${this.timer} seconds`);
+        this.logData.push(`Debut  : ${this.debutTime}, Actif  :${this.isActive}, Fin  : ${this.finTime}, Actif  :${!this.isActive}, Timer  : ${this.timer} seconds,`, );
       } else {
         // Start the clock
         this.debutTime = new Date().toLocaleString();
@@ -100,6 +131,17 @@ export default {
     },
   },
 };
+
+
+
+
+
+
+ /////
+
+
+
+ //////
 </script>
 
 <style>
