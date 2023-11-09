@@ -2,7 +2,77 @@
  <div class="container">
   <div class="row">
     <div class="col-2"><UserProfile /></div>
-    <div class="col-9"><WorkingTimes/> <ModalWorkingTimeVue/> </div>
+    <div class="col-7">
+      
+      <div class="intraContainer">
+         <WorkingTimes/> 
+   
+        <div class="styleUn">
+           <ChartUn widht="150"/>
+        </div>
+        <ChartDeux/>
+        <ChartTrois/>
+       
+       
+        <!-- <pButton label="Submit" /> -->
+
+
+
+
+        <!-- <div class="card flex justify-content-center">
+                <Button label="Show" icon="pi pi-external-link" @click="visible = true" />
+                <Dialog v-model:visible="visible" modal header="Header" :style="{ width: '50rem' }" :breakpoints="{ '1199px': '75vw', '575px': '90vw' }">
+                    <template #header>
+                        <div class="inline-flex align-items-center justify-content-center gap-2">
+                           
+                           
+                        </div>
+                    </template>
+                   
+                    <Carousel :value="products2" :numVisible="3" :numScroll="1" :responsiveOptions="responsiveOptions" circular :autoplayInterval="3000">
+                        <template #item="slotProps">
+                            <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
+                                <div class="mb-3">
+                                    <img :src="'https://primefaces.org/cdn/primevue/images/product/' + slotProps.data.image" :alt="slotProps.data.name" class="w-6 shadow-2" />
+                                </div>
+                                <div>
+                                    <h4 class="mb-1">{{ slotProps.data.name }}</h4>
+                                    <h6 class="mt-0 mb-3">${{ slotProps.data.price }}</h6>
+                                    <Tag :value="slotProps.data.inventoryStatus" :severity="getSeverity(slotProps.data.inventoryStatus)" />
+                                    <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                                        <Button icon="pi pi-search" rounded />
+                                        <Button icon="pi pi-star-fill" rounded severity="secondary" />
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </Carousel>
+                   
+                   
+                   
+                    <template #footer>
+                        <Button label="Ok" icon="pi pi-check" @click="visible = false" autofocus />
+                    </template>
+                   
+                   
+                </Dialog>
+            </div> -->
+
+
+
+
+
+
+
+
+
+        
+       
+      </div>  
+    </div>
+    <div class="col-2">
+   <ClockManager/>
+    </div>
   </div>
 </div>
 
@@ -10,10 +80,30 @@
 
 
 <script>
+
 import UserProfile from './UserProfile.vue'
 import WorkingTimes from './WorkingTimes.vue'
 import ModalWorkingTimeVue from './ModalWorkingTime.vue';
+import { ref, onMounted } from 'vue';
+import ChartUn from './ChartUn.vue';
+import ClockManager from './ClockManager.vue';
+import ChartDeux from './CharteDeux.vue';
+import ChartTrois from './ChartTrois.vue';
+// import { CustomerService } from '@/service/CustomerService';
+
 //import WorkingTime from './WorkingTime.vue'
+
+
+const customers = ref();
+const visible = ref(false);
+
+onMounted(() => {
+    CustomerService.getCustomersMedium().then((data) => {
+        customers.value = data;
+    });
+});
+
+
 
 export default {
   name: 'App',
@@ -21,21 +111,48 @@ export default {
     UserProfile,
    // WorkingTime,
     WorkingTimes,
-    ModalWorkingTimeVue
+    ModalWorkingTimeVue,
+    ChartUn,
+    ClockManager,
+    ChartDeux,
+    ChartTrois
   }
 }
+
+
+
+
+// const customers = ref();
+// const dialogVisible = ref(false); // Use an underscore to indicate it's intentionally unused
+
+// onMounted(() => {
+//     CustomerService.getCustomersMedium().then((data) => {
+//         customers.value = data;
+//     });
+// });
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .col-2
 {
-  border: solid 8px pink;
-  margin: 2px;
+  border: solid 1px rgba(198, 190, 190, 0.207);
+  margin: 10px;
+  border-radius: 20px;
+  -webkit-box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18); 
+ box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18);
+
 }
 .col-9
 {
-  border: solid 8px pink;
+  border: solid 1px rgba(198, 190, 190, 0.207);
+  border-radius: 20px;
+  margin: 10px;
+  padding: 10px;
+  -webkit-box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18); 
+  box-shadow: 6px 9px 10px 4px rgba(0,0,0,0.18);
+
  
 }
 .row
@@ -56,6 +173,11 @@ export default {
 {
   display: flex;
   justify-content: center;
-  background-color: black;
+
 }
+
+.intraContainer{
+
+}
+
 </style>
