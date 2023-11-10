@@ -1,39 +1,28 @@
-
 <script setup>
 import axios from 'axios';
-import ModalUser from './ModalUser.vue'
+import ModalUser from './ModalUser.vue';
 import ModalConnection from './ModalConnection.vue';
-// import ScriptSetupe from './ScriptSetupe.vue';
-import { ref } from 'vue';
-import {useStore }from '@/components/Store.js'
-
-const Store =  useStore();
+import { ref, onMounted } from 'vue';
+import { useStore } from '@/components/Store.js';
 
 
-// export default {
-//   name: 'UserProfile',
-//   components: { ModalUser, ModalConnection, 
-//     // ScriptSetupe 
-//    },
-//   data() {
-//     return {
-//       ModalUser: true,
-//     }
-//   },
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+  allowedHeaders: 'Content-Type,Authorization',
+}
 
-// }
+const Store = useStore();
 
-
-
-
-var datar = []
+var datar = [];
 var datarr = ref(datar);
 
 const setChart = async () => {
     try {
-        const response = await axios.get('http://13.36.64.65:4000/api/users/2'); 
+        const response = await axios.get('http://13.36.64.65:4000/api/users/2');
         const chartData = response.data;
-
 
         console.log(chartData.data.id);
         Store.name = chartData.data.username;
@@ -47,91 +36,85 @@ const setChart = async () => {
     }
 };
 
-
-const setClock = async () => {
-  
+const postData = async () => {
     try {
-      var string = '';
-        const response = await axios.get('http://13.36.64.65:4000/api/clocks/1'); 
-        const Clockdata = response.data;
+        const dataToPost = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('mail').value,
+            role: document.getElementById('role').value,
+            password: document.getElementById('password').value,
+        };
+          console.log(dataToPost)
+        // const response = await axios.post('http://13.36.64.65:4000/api/users', dataToPost);
+        const response = await axios.post('http://13.36.64.65:4000/api/users', dataToPost, { withCredentials: true });
 
-
-        console.log(Clockdata.data.id);
-        string = Clockdata.data.time.split('T');
-        Store.time = string[1]
+        console.log('Response from server after posting data:', response.data);
+        // Handle the response as needed
     } catch (error) {
-        console.error('Error fetching chart data:', error);
+        console.error('Error posting data:', error);
     }
 };
 
-setClock();
-setChart();
-console.log(datarr.value);
-
-console.log()
-
-
-
-
+onMounted(() => {
+    setChart();
+});
 </script>
 
-
 <template>
-  <div class="Profil">
-    <h1>Profil</h1>
     <div>
-      {{Store.name}}
-      </div>
-    <h3>Hour</h3>
+        <form @submit.prevent="postData">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="name">
+            </div>
+            <div class="mb-3">
+                <label for="mail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="mail" placeholder="email">
+            </div>
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <input type="text" class="form-control" id="role" placeholder="role">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="password">
+            </div>
+            <button type="submit"   class="btn btn-primary">Submit</button>
+        </form>
 
+        <!-- Your existing template code -->
 
-    <div class="username">
-         
-      <div>
-      {{Store.time}}
-      </div>
+        <div class="Profil">
+            <h1>Profil</h1>
+            <div>
+                {{ Store.name }}
             </div>
 
+            <!-- Additional content as needed -->
 
-<!-- Modal -->
-
-
-<ModalConnection/>
-<br/>
-
-<ModalUser v-show="ModalUser" />
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  </div>
+            <ModalConnection/>
+            <br/>
+            <ModalUser v-show="ModalUser" />
+        </div>
+    </div>
 </template>
 
-
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+    h3 {
+        margin: 40px 0 0;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    a {
+        color: #42b983;
+    }
 </style>
