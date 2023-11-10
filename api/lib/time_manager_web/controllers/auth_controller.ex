@@ -7,15 +7,19 @@ defmodule TimeManagerWeb.AuthController do
   alias TimeManager.Admin
 
   def get_token(conn, %{"email" => email, "password" => password}) do
-    user = Admin.get_user_by_email_and_password(email, password)
-
-    case user do
+    case Admin.get_user_by_email(email) do
       nil ->
-        conn |> put_status(401) |> json(%{error: "Invalid credentials"})
+        conn |> put_status(401) |> json(%{error: "Unknown user"})
 
-      _ ->
-        {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
-        conn |> put_status(200) |> json(%{token: jwt})
+      user ->
+        case Bcrypt.verify_pass(password, user.password) do
+          true ->
+            {:ok, jwt, _full_claims} = Guardian.encode_and_sign(user)
+            conn |> put_status(200) |> json(%{token: jwt})
+
+          false ->
+            conn |> put_status(401) |> json(%{error: "Invalid credentials"})
+        end
     end
   end
 
@@ -29,15 +33,15 @@ defmodule TimeManagerWeb.AuthController do
       _ ->
         conn
         |> put_status(200)
-        |> json(%{email: user.email, id: user.id, the_answer: get_answer(user)})
+        |> json(%{id: user.id, username: user.username, email: user.email, role: user.role})
     end
   end
 
-  def get_answer(user) do
-    if Admin.user_is_admin(user) do
-      "he is admin"
-    else
-      "he is not..."
-    end
-  end
+  # def get_answer(user) do
+  #   if Admin.user_is_admin(user) do
+  #     "admin"
+  #   else
+  #     "not admin"
+  #   end
+  # end
 end

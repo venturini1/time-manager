@@ -1,6 +1,8 @@
 defmodule TimeManagerWeb.WorkingTimeController do
   use TimeManagerWeb, :controller
-
+  plug(Guardian.Plug.Pipeline, module: TimeManagerWeb.Guardian)
+  plug(Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"})
+  plug(Guardian.Plug.LoadResource, allow_blank: true)
   alias TimeManager.Admin
   alias TimeManager.Admin.WorkingTime
 
@@ -25,6 +27,11 @@ defmodule TimeManagerWeb.WorkingTimeController do
         |> put_status(:unprocessable_entity)
         |> render("error.json", %{error: "Failed to create working_time", changeset: changeset})
     end
+  end
+
+  def show_by_id(conn, %{"id" => id}) do
+    working_time = Admin.get_working_time!(id)
+    render(conn, "show_one.json", working_time: working_time)
   end
 
   def show(conn, %{"userID" => userID, "start" => date_start, "end" => date_end}) do
