@@ -1,0 +1,29 @@
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - cd api # Répertoire contenant le code Elixir
+
+jobs:
+  include:
+    - stage: backend tests
+      name: "Run Elixir tests"
+      script:
+        - docker build -t image-api -f Dockerfile.elixir .
+        - docker run image-api mix test
+
+    - stage: frontend tests
+      name: "Run Vue.js tests"
+      script:
+        - cd ../app # Répertoire contenant le code Vue.js
+        - docker build -t image-app -f Dockerfile.vue .
+        - docker run image-app npm run test
+
+    - stage: deploy
+      name: "Docker-compose deployment"
+      script:
+        - cd .. # Répertoire contenant les fichiers de configuration Docker
+        - docker-compose up -d
+        # Éventuellement, d'autres commandes pour les tests d'intégration ou la vérification du déploiement
