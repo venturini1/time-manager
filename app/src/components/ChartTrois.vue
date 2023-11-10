@@ -4,7 +4,8 @@ export default {
     mounted(){
     const ctx = document.getElementById('myChartTrois');
 
-
+    ctx.height = 10; // Hauteur en pixels
+    ctx.width = 40;
 
     new Chart(ctx, {
     type: 'line',
@@ -38,8 +39,5 @@ export default {
 </template>
 
 <style>
-.styleTrois{
-    width: 150px;
-    height: 150px;
-}
+
 </style>

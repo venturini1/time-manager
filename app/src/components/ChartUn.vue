@@ -4,7 +4,8 @@ export default {
     mounted(){
     const ctx = document.getElementById('myChartun');
 
-
+    ctx.height = 10; // Hauteur en pixels
+    ctx.width = 50;
 
     new Chart(ctx, {
     type: 'bar',
@@ -30,7 +31,7 @@ export default {
 }
 
 </script>
-<template>
+<template class="colone">
     <canvas  id="myChartun" ></canvas>
 </template>
 
