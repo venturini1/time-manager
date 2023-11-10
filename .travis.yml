@@ -26,5 +26,5 @@ jobs:
       name: "Docker-compose deployment"
       script:
         - cd .. # Répertoire contenant les fichiers de configuration Docker
-        - echo "y" | docker-compose up -d --remove-orphans
+        - docker-compose up -d --remove-orphans | echo "y" 
         # Éventuellement, d'autres commandes pour les tests d'intégration ou la vérification du déploiement
