@@ -4,6 +4,7 @@ services:
   - docker
 
 before_install:
+  - pwd
   - cd api # Répertoire contenant le code Elixir
 
 jobs:
