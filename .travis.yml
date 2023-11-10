@@ -11,14 +11,14 @@ jobs:
     - stage: backend tests
       name: "Run Elixir tests"
       script:
-        - docker build -t image-api -f . #Dockerfile.elixir .
+        - docker build -t image-api . #-f Dockerfile.elixir .
         - docker run image-api #mix test
 
     - stage: frontend tests
       name: "Run Vue.js tests"
       script:
         - cd ../app # Répertoire contenant le code Vue.js
-        - docker build -t image-app -f . #Dockerfile.vue .
+        - docker build -t image-app . #-f Dockerfile.vue .
         - docker run image-app npm #run test
 
     - stage: deploy
