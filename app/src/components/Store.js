@@ -7,7 +7,7 @@ export const useStore = defineStore('storeId', {
       // all these properties will have their type inferred automatically
    
       name: '',
-   
+      time: ""
     }
   },
 })

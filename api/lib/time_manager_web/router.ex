@@ -7,6 +7,7 @@ defmodule TimeManagerWeb.Router do
 
   scope "/api", TimeManagerWeb do
     pipe_through :api
+
     # USERS ROUTES
     get "/users", UserController, :index
     get "/users/:id", UserController, :show
@@ -25,6 +26,18 @@ defmodule TimeManagerWeb.Router do
     post "/workingtimes/:userID", WorkingTimeController, :create
     put "/workingtimes/:id", WorkingTimeController, :update
     delete "/workingtimes/:id", WorkingTimeController, :delete
+  end
+
+  pipeline :auth do
+    plug :accepts, ["json"]
+  end
+
+  scope "/auth", TimeManagerWeb do
+    pipe_through :auth
+
+    # AUTH ROUTES
+    post "/get_token", AuthController, :get_token
+    get "/me", AuthController, :me
   end
 
   # Enables LiveDashboard only for development

@@ -4,7 +4,7 @@ import axios from 'axios';
 import ModalUser from './ModalUser.vue'
 import ModalConnection from './ModalConnection.vue';
 // import ScriptSetupe from './ScriptSetupe.vue';
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import { ref } from 'vue';
 import {useStore }from '@/components/Store.js'
 
 const Store =  useStore();
@@ -31,7 +31,7 @@ var datarr = ref(datar);
 
 const setChart = async () => {
     try {
-        const response = await axios.get('http://localhost:4000/api/users/2'); 
+        const response = await axios.get('http://13.36.64.65:4000/api/users/2'); 
         const chartData = response.data;
 
 
@@ -48,6 +48,23 @@ const setChart = async () => {
 };
 
 
+const setClock = async () => {
+  
+    try {
+      var string = '';
+        const response = await axios.get('http://13.36.64.65:4000/api/clocks/1'); 
+        const Clockdata = response.data;
+
+
+        console.log(Clockdata.data.id);
+        string = Clockdata.data.time.split('T');
+        Store.time = string[1]
+    } catch (error) {
+        console.error('Error fetching chart data:', error);
+    }
+};
+
+setClock();
 setChart();
 console.log(datarr.value);
 
@@ -65,16 +82,14 @@ console.log()
     <div>
       {{Store.name}}
       </div>
-    <h3>Name</h3>
+    <h3>Hour</h3>
 
 
     <div class="username">
          
       <div>
-      {{Store.name}}
+      {{Store.time}}
       </div>
-                    <!-- <br>
-                    <div>  Email:  {{datar[1]}} </div> -->
             </div>
 
 
