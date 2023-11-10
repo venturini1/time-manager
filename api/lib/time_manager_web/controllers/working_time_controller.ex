@@ -1,6 +1,8 @@
 defmodule TimeManagerWeb.WorkingTimeController do
   use TimeManagerWeb, :controller
-
+  plug(Guardian.Plug.Pipeline, module: TimeManagerWeb.Guardian)
+  plug(Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"})
+  plug(Guardian.Plug.LoadResource, allow_blank: true)
   alias TimeManager.Admin
   alias TimeManager.Admin.WorkingTime
 

@@ -8,7 +8,7 @@
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>API - Documentation</title>
+    <title>API TimeManager- Documentation</title>
     <meta name="description" content="">
     <meta name="author" content="ticlekiwi">
 
@@ -39,8 +39,8 @@
     <div class="mobile-menu-closer"></div>
     <div class="content-menu">
         <div class="content-infos">
-            <div class="info"><b>Version:</b> 1.0.5</div>
-            <div class="info"><b>Last Updated:</b> 15th Sep, 2021</div>
+            <div class="info"><b>Version:</b> 1.0</div>
+            <div class="info"><b>Last Updated:</b> 10th Nov, 2023</div>
         </div>
         <ul>
             <li class="scroll-to-link active" data-target="content-get-started">
@@ -61,16 +61,27 @@
         <div class="overflow-hidden content-section" id="content-get-started">
             <h1>Get started</h1>
             <pre>
-    API Endpoint
+    API Endpoints
+<a href="http://13.36.64.65:4000/api/" blank="_none">http://13.36.64.65:4000/api/</a>
 
-        https://api.westeros.com/
-                </pre>
+POST     /auth/get_token
+GET     /api/users
+GET     /api/users/:id
+POST    /api/users 
+PUT     /api/users/:id
+DELETE  /api/users/:id
+POST    /api/clocks/:userID
+GET     /api/clocks/:userID
+GET     /api/workingtimes 
+GET     /api/workingtimes/:userID
+GET     /api/workingtimes/:userID/:id
+POST    /api/workingtimes/:userID
+PUT     /api/workingtimes/:id
+DELETE  /api/workingtimes/:id 
+
+            </pre>
             <p>
-                The Westeros API provides programmatic access to read Game of Thrones data. Retrieve a character, provide an oauth connexion, retrieve a familly, filter them, etc.
-            </p>
-            <p>
-                To use this API, you need an <strong>API key</strong>. Please contact us at <a href="mailto:jon.snow@nightswatch.wes">jon.snow@nightswatch.wes</a> to get your own API key.
-            </p>
+                Gotham City Hall aims to deploy its application across various platforms, including computers, terminals, and potentially mobile devices. To achieve this, we are developing a platform-independent API designed for efficient data exchange and storage. This API ensures seamless functionality across different devices, enhancing the accessibility and versatility of Gotham City Hall's services.            </p>
         </div>
         <div class="overflow-hidden content-section" id="content-get-characters">
             <h2>get characters</h2>

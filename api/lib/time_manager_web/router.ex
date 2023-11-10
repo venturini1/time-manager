@@ -40,6 +40,16 @@ defmodule TimeManagerWeb.Router do
     get "/me", AuthController, :me
   end
 
+  pipeline :doc do
+  end
+
+  scope "/doc", TimeManagerWeb do
+    pipe_through :doc
+
+    # DOC ROUTE
+    get "/", DocController, :show
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -52,6 +62,8 @@ defmodule TimeManagerWeb.Router do
 
     scope "/" do
       pipe_through [:fetch_session, :protect_from_forgery]
+          # Ajoutez un commentaire pour la documentation
+    # Page d'accueil qui présente les endpoints
       live_dashboard "/dashboard", metrics: TimeManagerWeb.Telemetry
     end
   end
