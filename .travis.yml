@@ -1,29 +1,30 @@
-language: elixir
-elixir:
-  - 1.8.2
-otp_release:
-  - 22.0
+language: generic
 
-before_script:
-  - echo 'hello'
-  - docker-compose up -d
-  - sleep 10
-  - echo "hello2"
-
-script:
-  - echo "hello3"
-  - cd  api
-  - pwd
-  - mix deps.get
-  - mix ecto.create
-  - mix ecto.migrate
-  - mix test
-  - cd ../app
-  - npm install
-  - npm run build
-  - npm test
 services:
   - docker
-  
-after_script:
-  - docker-compose down
+
+before_install:
+  - pwd
+  - cd api # Répertoire contenant le code Elixir
+
+jobs:
+  include:
+    - stage: backend tests
+      name: "Run Elixir tests"
+      script:
+        - docker build -t image-api . #-f Dockerfile.elixir .
+        #- docker run image-api #mix test
+
+    - stage: frontend tests
+      name: "Run Vue.js tests"
+      script:
+        - cd ../app # Répertoire contenant le code Vue.js
+        - docker build -t image-app . #-f Dockerfile.vue .
+        #- docker run image-app npm #run test
+
+    - stage: deploy
+      name: "Docker-compose deployment"
+      script:
+        - cd .. # Répertoire contenant les fichiers de configuration Docker
+        - docker-compose up -d --remove-orphans
+        # Éventuellement, d'autres commandes pour les tests d'intégration ou la vérification du déploiement
