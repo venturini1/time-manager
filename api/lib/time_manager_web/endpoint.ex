@@ -1,7 +1,7 @@
 defmodule TimeManagerWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :time_manager
 
-  # The session will be stored in the cookie and signed,
+  # The session will be stored in the cookie and signed, ouiiiiiiii
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
