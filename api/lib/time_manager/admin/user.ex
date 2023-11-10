@@ -1,6 +1,7 @@
 defmodule TimeManager.Admin.User do
   use Ecto.Schema
   import Ecto.Changeset
+  # import Bcrypt
 
   schema "users" do
     field :username, :string
@@ -18,5 +19,14 @@ defmodule TimeManager.Admin.User do
     |> validate_required([:username, :email, :role, :password])
     |> unique_constraint(:email)
     |> validate_inclusion(:role, ["user", "manager", "admin"])
+    |> hash_password()
+  end
+
+  defp hash_password(changeset) do
+    case get_change(changeset, :password) do
+      nil -> changeset
+      password ->
+        put_change(changeset, :password, Bcrypt.hash_pwd_salt(password))
+    end
   end
 end

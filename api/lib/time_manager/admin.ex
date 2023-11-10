@@ -48,8 +48,14 @@ defmodule TimeManager.Admin do
     Repo.all(query)
   end
 
-  def get_user_by_email_and_password(email, password) do
-    query = from u in User, where: u.email == ^email and u.password == ^password
+  # def get_user_by_email_and_password(email, password) do
+  #   query = from u in User, where: u.email == ^email and u.password == ^password
+
+  #   Repo.one(query)
+  # end
+
+  def get_user_by_email(email) do
+    query = from u in User, where: u.email == ^email
 
     Repo.one(query)
   end
