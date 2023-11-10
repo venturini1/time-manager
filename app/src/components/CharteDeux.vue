@@ -4,7 +4,8 @@ export default {
     mounted(){
     const ctx = document.getElementById('myChartDeux');
 
-
+    ctx.height = 10; // Hauteur en pixels
+    ctx.width = 10;
 
     new Chart(ctx, {
     type: 'doughnut',
@@ -30,6 +31,7 @@ export default {
 }
 
 </script>
+
 <template>
     <canvas  id="myChartDeux" ></canvas>
 </template>
