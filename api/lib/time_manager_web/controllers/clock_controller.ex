@@ -9,6 +9,7 @@ defmodule TimeManagerWeb.ClockController do
 
   action_fallback TimeManagerWeb.FallbackController
 
+  # POST /clocks/:userID
   def create(conn, %{"userID" => userID} = clock_params) do
     user = Guardian.Plug.current_resource(conn)
 
@@ -50,6 +51,49 @@ defmodule TimeManagerWeb.ClockController do
       end
   end
 
+  # def create(conn, %{"userID" => userID} = clock_params) do
+  #   user = Guardian.Plug.current_resource(conn)
+  #   case user do
+  #     nil ->
+  #       conn
+  #       |> put_status(401)
+  #       |> json(%{error: %{code: "401", message: "Please connect first"}})
+  #     %{"id" => user_id} when user_id == userID ->
+  #       existing_clock = Admin.get_existing_clock(userID)
+  #       case existing_clock do
+  #         nil ->
+  #           case Admin.create_clock(Map.put(clock_params, "user_id", userID)) do
+  #             {:ok, %Clock{} = clock} ->
+  #               conn
+  #               |> put_status(:created)
+  #               |> put_resp_header("location", Routes.clock_path(conn, :show, clock))
+  #               |> render("show.json", clock: clock)
+  #             {:error, changeset} ->
+  #               conn
+  #               |> put_status(:unprocessable_entity)
+  #               |> render("error.json", %{error: "Failed to create clock", changeset: changeset})
+  #           end
+  #         existing_clock ->
+  #           case Admin.update_clock(existing_clock, clock_params) do
+  #             {:ok, updated_clock} ->
+  #               conn
+  #               |> put_status(:ok)
+  #               |> render("show.json", clock: updated_clock)
+  #             {:error, changeset} ->
+  #               conn
+  #               |> put_status(:unprocessable_entity)
+  #               |> render("error.json", %{error: "Failed to update clock", changeset: changeset})
+  #           end
+  #       end
+  #     _ ->
+  #       # Si user n'est pas nul et les IDs ne correspondent pas
+  #       conn
+  #       |> put_status(403)
+  #       |> json(%{error: %{code: "403", message: "Permission denied"}})
+  #   end
+  # end
+
+  # GET /clocks/:userID
   def show(conn, %{"userID" => userID}) do
     user = Guardian.Plug.current_resource(conn)
 
